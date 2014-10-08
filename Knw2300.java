@@ -64,7 +64,7 @@ public class Robot {
     }
     
     public static void runBothMotors(RXTXRobot r) {
-        r.runEncodedMotor(right, -165, 1350, left, 140, 1250); // Run both motors forward for 3m 
+        r.runEncodedMotor(right, -165, 1610, left, 140, 1000); // Run both motors forward for 3m 
         r.sleep(5000); // Pause execution for 5 seconds, but the motors keep running. 
         r.runMotor(RXTXRobot.MOTOR1,0,RXTXRobot.MOTOR2,0,0); // Stop both motors 
     }
@@ -91,7 +91,7 @@ public class Robot {
     
     public static void runBothMotorsBump(RXTXRobot r) {
         // Motor until bump sensor is tapped        
-        r.runMotor(right, -150, left, 150, 0); // Run both motors forward indefinitely 
+        r.runMotor(RXTXRobot.MOTOR1, -150, RXTXRobot.MOTOR2, 150, 0); // Run both motors forward indefinitely 
         while(true){	
         	r.refreshAnalogPins();
         	int bump0 = r.getAnalogPin(0).getValue();
