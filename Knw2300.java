@@ -87,6 +87,7 @@ public class Knw2300 {
             int bump3 = r.getAnalogPin(3).getValue();
         	if(bump0!=0||bump1!=0||bump2!=0||bump3!=0){
         		r.runMotor(RXTXRobot.MOTOR1,0,RXTXRobot.MOTOR2,0,0);
+        		break;
         	}
         	r.sleep(50);
         }
