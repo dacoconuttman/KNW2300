@@ -60,6 +60,13 @@ public class Knw2300 {
 	r.runMotor(RXTXRobot.MOTOR1,0,RXTXRobot.MOTOR2,0,0); // Stop both motors 
     }
     
+    public static void runBothMotors(RXTXRobot r, int x){
+    	//run motor for x meters
+        r.runEncodedMotor(RXTXRobot.MOTOR1, -250, 1527*x, RXTXRobot.MOTOR2, 250, 1527*x); // Run both motors forward for 3m 
+	r.sleep(5000); // Pause execution for 5 seconds, but the motors keep running. 
+	r.runMotor(RXTXRobot.MOTOR1,0,RXTXRobot.MOTOR2,0,0); // Stop both motors 
+    }
+    
     public static void bumpSensor(RXTXRobot r) {
         // Motor until bump sensor is tapped
         r.refreshAnalogPins();
@@ -68,4 +75,19 @@ public class Knw2300 {
         //r.getAnalogPin(2);
         //r.getAnalogPin(3);
     }
+    
+    public static void runBothMotorsBump(RXTXRobot r) {
+        // Motor until bump sensor is tapped
+        r.refreshAnalogPins();
+        int bump0 = r.getAnalogPin(0).getValue();
+        int bump1 = r.getAnalogPin(1).getValue();
+        int bump2 = r.getAnalogPin(2).getValue();
+        int bump3 = r.getAnalogPin(3).getValue();
+        while(true){
+        	r.runMotor(RXTXRobot.MOTOR1, 500, RXTXRobot.MOTOR2, 500, 0); // Run both motors forward indefinitely 
+        	if(bump0!=0||bump1!=0||bump2!=0||bump3!=0){
+        		r.runMotor(RXTXRobot.MOTOR1,0,RXTXRobot.MOTOR2,0,0);
+        	}
+        	r.sleep(50);
+        }
 } 
