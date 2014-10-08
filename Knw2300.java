@@ -13,20 +13,22 @@ public class Knw2300 {
     
     public static void main(String[] args) {        
         RXTXRobot r = new ArduinoNano();
-        r.setPort("/dev/tty.wch ch341 USB=>RS232 fa130");
+        r.setPort("/dev/tty.wch ch341 USB=>RS232 fd120");
         r.connect(); 
-        motor(r);
-        ping(r);
-        servo(r);
-        shaftEncoder(r);
+        runBothMotors(r);
+        //ping(r);
+        //servo(r);
+        //shaftEncoder(r);
         r.close(); 
     }
     
     public static void motor(RXTXRobot r) {
+        // Turn for 3 meters
         r.runMotor(RXTXRobot.MOTOR1, 50, 30000);
     }
     
     public static void ping(RXTXRobot r) {
+        // >15cm & <15cm
         final int PING_PIN = 4;
         for (int x=0; x < 10; ++x) 
 	{ 
@@ -37,6 +39,7 @@ public class Knw2300 {
     }
     
     public static void servo(RXTXRobot r) {
+        // Angle specified and then back
         r.attachServo(RXTXRobot.SERVO1, 7);
         r.sleep(1000);
         r.moveServo(RXTXRobot.SERVO1, 135);
@@ -45,8 +48,24 @@ public class Knw2300 {
     }
     
     public static void shaftEncoder(RXTXRobot r) {
+        // Turn for 500 ticks
         System.out.println(r.getEncodedMotorPosition(RXTXRobot.MOTOR1));
         r.runEncodedMotor(RXTXRobot.MOTOR1, 125, 500);
         System.out.println(r.getEncodedMotorPosition(RXTXRobot.MOTOR1));
     }
-}
+    
+    public static void runBothMotors(RXTXRobot r) {
+        r.runEncodedMotor(RXTXRobot.MOTOR1, -250, 4581, RXTXRobot.MOTOR2, 250, 4581); // Run both motors forward for 3m 
+	r.sleep(5000); // Pause execution for 5 seconds, but the motors keep running. 
+	r.runMotor(RXTXRobot.MOTOR1,0,RXTXRobot.MOTOR2,0,0); // Stop both motors 
+    }
+    
+    public static void bumpSensor(RXTXRobot r) {
+        // Motor until bump sensor is tapped
+        r.refreshAnalogPins();
+        System.out.println(r.getAnalogPin(0));
+        //r.getAnalogPin(1);
+        //r.getAnalogPin(2);
+        //r.getAnalogPin(3);
+    }
+} 
