@@ -77,14 +77,14 @@ public class Knw2300 {
     }
     
     public static void runBothMotorsBump(RXTXRobot r) {
-        // Motor until bump sensor is tapped
-        r.refreshAnalogPins();
-        int bump0 = r.getAnalogPin(0).getValue();
-        int bump1 = r.getAnalogPin(1).getValue();
-        int bump2 = r.getAnalogPin(2).getValue();
-        int bump3 = r.getAnalogPin(3).getValue();
-        while(true){
-        	r.runMotor(RXTXRobot.MOTOR1, 500, RXTXRobot.MOTOR2, 500, 0); // Run both motors forward indefinitely 
+        // Motor until bump sensor is tapped        
+        r.runMotor(RXTXRobot.MOTOR1, 500, RXTXRobot.MOTOR2, 500, 0); // Run both motors forward indefinitely 
+        while(true){	
+        	r.refreshAnalogPins();
+        	int bump0 = r.getAnalogPin(0).getValue();
+            int bump1 = r.getAnalogPin(1).getValue();
+            int bump2 = r.getAnalogPin(2).getValue();
+            int bump3 = r.getAnalogPin(3).getValue();
         	if(bump0!=0||bump1!=0||bump2!=0||bump3!=0){
         		r.runMotor(RXTXRobot.MOTOR1,0,RXTXRobot.MOTOR2,0,0);
         	}
