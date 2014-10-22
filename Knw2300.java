@@ -19,11 +19,11 @@ public class Robot {
         r.connect(); 
         //runBothMotors(r);
         //ping(r);
-        //servo(r);
+        servo(r);
         //shaftEncoder(r);
         //runBothMotorsBump(r);
         //bumpSensor(r);
-        runBothMotors(r);
+        //runBothMotors(r);
         //ping(r);
         r.close(); 
     }
@@ -103,5 +103,10 @@ public class Robot {
         		break;
         	}
         }
+    	public static void runCollector(RXTXRobot r, int balls){
+    		for (int i = 0; i<balls;i++){
+    			r.runMotor(RXTXRobot.MOTOR1,88,760);
+    			r.sleep(500);
+    		}
 }
 }
